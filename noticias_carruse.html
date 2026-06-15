@@ -1,0 +1,220 @@
+<style>/* Estilos del Carrusel */
+.carrusel-wrapper {
+    overflow-x: auto; /* Permite scroll horizontal */
+    scroll-behavior: smooth; /* Movimiento suave */
+    -ms-overflow-style: none;  /* Ocultar barra scroll IE/Edge */
+    scrollbar-width: none;  /* Ocultar barra scroll Firefox */
+}
+
+/* Ocultar barra scroll Chrome/Safari */
+.carrusel-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.carrusel-track {
+    display: flex;
+    gap: 20px;
+    padding: 10px 5px; /* Espacio para la sombra */
+}
+
+.noticia-card {
+    min-width: 300px; /* Ancho fijo de cada tarjeta */
+    max-width: 300px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-left: 4px solid #2c3e50;
+    flex-shrink: 0; /* Evita que se aplasten */
+}
+
+.noticia-card h3 {
+    color: #2c3e50;
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.noticia-card .fecha {
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.noticia-card a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Botones de navegación (Flechas) */
+.nav-btn {
+    position: absolute;
+    top: 55%; /* Centrado verticalmente */
+    transform: translateY(-50%);
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background 0.3s;
+}
+
+.nav-btn:hover { background-color: #1a252f; }
+.prev-btn { left: -20px; } /* Posición flecha izq */
+.next-btn { right: -20px; } /* Posición flecha der */
+
+/* Ajuste para móviles: ocultar flechas y dejar que deslicen con el dedo */
+@media (max-width: 768px) {
+    .nav-btn { display: none; }
+    .noticia-card { min-width: 260px; }
+}
+/* Estilos del Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); /* Fondo oscuro transparente */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efecto borroso pro */
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: aparecer 0.3s ease;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #888;
+}
+
+.close-btn:hover { color: red; }
+
+@keyframes aparecer {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}</style>
+<section id="noticias" style="padding: 60px 0; background-color: #f4f6f8; position: relative;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; position: relative;">
+        
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px; font-size: 2.2rem;">
+            Actualidad Legal
+        </h2>
+
+        <button class="nav-btn prev-btn" onclick="moverCarrusel(-1)">&#10094;</button>
+
+        <div class="carrusel-wrapper">
+            <div class="carrusel-track" id="track">
+                
+                <article class="noticia-card">
+                    <span class="fecha">📅 15/01/2026</span>
+                    <h3>Nueva Ley de Copropiedad</h3>
+                    <p>Cambios fundamentales en la administración de condominios y el rol del comité...</p>
+                    <button onclick="abrirModal('Nueva Ley de Copropiedad', '15/01/2026')" style="background:none; border:none; color:#2c3e50; font-weight:bold; cursor:pointer; font-size:0.9rem; padding:0; margin-top:15px; text-decoration:underline;">
+    Leer más →
+</button>
+                </article>
+
+                <article class="noticia-card">
+                    <span class="fecha">📅 10/01/2026</span>
+                    <h3>Ley Karin: Acoso Laboral</h3>
+                    <p>Las empresas deben adaptar sus reglamentos internos para cumplir con la nueva normativa...</p>
+                    <button onclick="abrirModal('Nueva Ley de Copropiedad', '15/01/2026')" style="background:none; border:none; color:#2c3e50; font-weight:bold; cursor:pointer; font-size:0.9rem; padding:0; margin-top:15px; text-decoration:underline;">
+                        Leer más →
+                    </button>
+                </article>
+
+                <article class="noticia-card">
+                    <span class="fecha">📅 05/01/2026</span>
+                    <h3>Registro de Deudores</h3>
+                    <p>Explicamos cómo solicitar la retención judicial de manera efectiva bajo la nueva ley...</p>
+                    <button onclick="abrirModal('Nueva Ley de Copropiedad', '15/01/2026')" style="background:none; border:none; color:#2c3e50; font-weight:bold; cursor:pointer; font-size:0.9rem; padding:0; margin-top:15px; text-decoration:underline;">
+                    Leer más →
+                    </button>
+                </article>
+
+                <article class="noticia-card">
+                    <span class="fecha">📅 28/12/2025</span>
+                    <h3>Derechos del Consumidor</h3>
+                    <p>¿Tuviste problemas con las compras navideñas? Conoce tus derechos de garantía...</p>
+                    <button onclick="abrirModal('Nueva Ley de Copropiedad', '15/01/2026')" style="background:none; border:none; color:#2c3e50; font-weight:bold; cursor:pointer; font-size:0.9rem; padding:0; margin-top:15px; text-decoration:underline;">
+                            Leer más →
+                        </button>
+                </article>
+
+                <article class="noticia-card">
+                    <span class="fecha">📅 20/12/2025</span>
+                    <h3>Divorcio de Mutuo Acuerdo</h3>
+                    <p>Requisitos y plazos para tramitar un divorcio cuando ambas partes están de acuerdo...</p>
+                    <button onclick="abrirModal('Nueva Ley de Copropiedad', '15/01/2026')" style="background:none; border:none; color:#2c3e50; font-weight:bold; cursor:pointer; font-size:0.9rem; padding:0; margin-top:15px; text-decoration:underline;">
+                        Leer más →
+                    </button>
+                </article>
+
+            </div>
+        </div>
+
+        <button class="nav-btn next-btn" onclick="moverCarrusel(1)">&#10095;</button>
+
+    </div>
+</section>
+<div id="modalNoticia" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="cerrarModal()">&times;</span>
+        <h2 id="modalTitulo">Título de la Noticia</h2>
+        <p class="modal-fecha" id="modalFecha">📅 Fecha</p>
+        <div class="modal-texto" id="modalCuerpo">
+            <p>Aquí aparecerá el desarrollo completo de la noticia cuando esté programada. 
+            Las abogadas podrán escribir todo el texto que quieran, agregar negritas, listas, etc.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+</div>
+<script>
+    function moverCarrusel(direccion) {
+        const wrapper = document.querySelector('.carrusel-wrapper');
+        const cardWidth = 320; // Ancho de la tarjeta + el gap (300 + 20)
+        
+        // Si direccion es 1, mueve a la derecha. Si es -1, a la izquierda.
+        wrapper.scrollBy({
+            left: direccion * cardWidth, 
+            behavior: 'smooth'
+        });
+    }
+function abrirModal(titulo, fecha) {
+    document.getElementById('modalNoticia').style.display = 'flex';
+    document.getElementById('modalTitulo').innerText = titulo;
+    document.getElementById('modalFecha').innerText = '📅 ' + fecha;
+}
+
+function cerrarModal() {
+    document.getElementById('modalNoticia').style.display = 'none';
+}
+
+// Cerrar si hacen clic fuera del recuadro blanco
+window.onclick = function(event) {
+    const modal = document.getElementById('modalNoticia');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>	
